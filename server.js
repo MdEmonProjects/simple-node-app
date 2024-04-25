@@ -53,7 +53,16 @@ app.post('/data', (req, res) => {
     });
   });
 });
-
+app.get("/", (req, res) => {
+  fs.readFile("data.json", "utf8", (err, data) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Internal Server Error");
+      return;
+    }
+    res.json(JSON.parse(data));
+  });
+});
 
 // Start server
 app.listen(PORT, () => {
